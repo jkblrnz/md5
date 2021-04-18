@@ -21,29 +21,19 @@
 #define S43 15
 #define S44 21
 
-//////////////////////////////////////////////
-// default ctor, just initailize
-md5::md5() : finalized(false), count { 0, 0 }, state { 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476 }  { }
-
-//////////////////////////////////////////////
-// nifty shortcut ctor, compute MD5 for string and finalize it right away
-md5::md5(const std::string &text) : finalized(false), count { 0, 0 }, state { 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476 } {
-    update(text.c_str(), text.length());
-    finalize();
-}
-
 //////////////////////////////
 // decodes input (unsigned char) into output (uint4). Assumes len is a multiple of 4.
-void md5::decode(uint32_t output[], const uint8_t input[], uint32_t len) {
+void decode(uint32_t output[], const uint8_t input[], uint32_t len) {
     for (unsigned int i = 0, j = 0; j < len; i++, j += 4)
         output[i] = ((uint32_t)input[j]) | (((uint32_t)input[j+1]) << 8) |
-                    (((uint32_t)input[j+2]) << 16) | (((uint32_t)input[j+3]) << 24);
+                    (((uint32_t)input[j+2]) << 16) |
+                    (((uint32_t)input[j+3]) << 24);
 }
 
 //////////////////////////////
 // encodes input (uint32_t) into output (unsigned char). Assumes len is
 // a multiple of 4.
-void md5::encode(uint8_t output[], const uint32_t input[], uint32_t len) {
+void encode(uint8_t output[], const uint32_t input[], uint32_t len) {
     for (uint32_t i = 0, j = 0; j < len; i++, j += 4) {
         output[j] = input[i] & 0xff;
         output[j+1] = (input[i] >> 8) & 0xff;
