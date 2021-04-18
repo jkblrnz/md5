@@ -1,1 +1,1 @@
-#include "rainbowTable.h"
+#include "rainbowTable.hpp"
