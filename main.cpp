@@ -1,8 +1,8 @@
 #include <iostream>
 #include "md5.hpp"
 #include "rainbowTable.hpp"
-
 int main() {
+
     rainbowTable test;
 
     std::string test_password = "banana";
