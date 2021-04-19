@@ -1,13 +1,14 @@
+#include <iostream>
+#include "md5.hpp"
 #include "rainbowTable.hpp"
 
-static const int MAX_PASSWORD_SIZE = 30;
 
 //////////////////////////////////////////////////
 //Function that is sent the password and three salt integers
 //These are combined and "returned" via call by reference
 //s1, s2, and s3 must all be single digits (in decimal)
 //Call any time a password must be salted prior to use of md5
-void salt(std::string &password, int s1, int s2, int s3, char rtrn[MAX_PASSWORD_SIZE], int &rtrn_size)
+void rainbowTable::salt(std::string &password, int s1, int s2, int s3, char rtrn[MAX_PASSWORD_SIZE], int &rtrn_size)
 {
     //Assign three salt characters to the end of the string
     char s;
@@ -30,7 +31,7 @@ void salt(std::string &password, int s1, int s2, int s3, char rtrn[MAX_PASSWORD_
 /////////////////////////////////////////////////
 //Function that is sent two strings and checks that they are equal
 //Use to confirm multiple strings are the same
-bool is_equal(std::string str1, std::string str2)
+bool rainbowTable::is_equal(std::string str1, std::string str2)
 {
     int length1 = str1.length(), length2 = str2.length();
     if(length1 != length2)
