@@ -1,8 +1,8 @@
 #include <iostream>
 #include "md5.hpp"
-//#include "md5.cpp"
+#include "md5.cpp"
 #include "rainbowTable.hpp"
-//#include "rainbowTable.cpp"
+#include "rainbowTable.cpp"
 
 
 int main() {
