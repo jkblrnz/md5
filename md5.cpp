@@ -213,6 +213,12 @@ void md5::update(const char input[], uint32_t length) {
 }
 
 //////////////////////////////
+// for convenience provide a verson with string 
+void md5::update(std::string text) {
+    update(text.c_str(), text.length());
+}
+
+//////////////////////////////
 // MD5 finalization. Ends an MD5 message-digest operation, writing the
 // the message digest and zeroizing the context.
 md5& md5::finalize() {

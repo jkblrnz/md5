@@ -17,6 +17,7 @@ class md5 {
         // set methods
         void update(const char *buf, uint32_t length);
         void update(const unsigned char *buf, uint32_t length);
+        void update(std::string test);
         md5& finalize();
 
         // get methods
