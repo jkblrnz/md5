@@ -10,13 +10,14 @@ class md5 {
         md5() : finalized(false), count { 0, 0 }, state { 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476 }  {
         }
         md5(const std::string &text) : finalized(false), count { 0, 0 }, state { 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476 } {
-            update(text.c_str(), text.length());
+            update(text);
             finalize();
         }
 
         // set methods
         void update(const char *buf, uint32_t length);
         void update(const unsigned char *buf, uint32_t length);
+        void update(std::string test);
         md5& finalize();
 
         // get methods
