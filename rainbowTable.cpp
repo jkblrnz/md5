@@ -91,8 +91,8 @@ void rainbowTable::loadTable()
             salt(temp, s1, s2, s3, input, input_size);
             //Initialize and use md5 to hash
             md5 newMd5(temp);
-            newMd5.update(input, input_size);
-            newMd5.finalize();
+            for(int i = 0; i < 1000; i++)
+                newMd5 = md5(newMd5.toString());
             table[p][s] = newMd5.toString();
         }
     }

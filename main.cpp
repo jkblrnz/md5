@@ -1,27 +1,10 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 #include "rainbowTable.hpp"
 #include "md5.hpp"
 
 int main() {
-    // normal example
-    std::cout << "Offical:   " << "d41d8cd98f00b204e9800998ecf8427e" << '\n'; //rfc 1321
-    std::cout << "Unsalted:  " << md5("").toString() << '\n'; // constructor example
-
-    // salting example
-    md5 tempMd5;
-    std::string temp = "";
-    std::string salt = "staticsalt0987612345";
-    temp.append(salt);
-    tempMd5.update(temp);
-    tempMd5.finalize();
-    std::cout << "Salted:    " << tempMd5.toString() << '\n';
-
-    // slow md5
-    for(int i = 0; i < 1000; i++)
-        tempMd5 = md5(tempMd5.toString());
-    std::cout << "slow md5:  " << tempMd5.toString() << '\n';
-
     //rainbow table example
     rainbowTable test;
 
@@ -49,6 +32,9 @@ int main() {
 
     //Hash it
     md5 part1(password1);
+    for(int i = 0; i < 1000; i++)
+        part1 = md5(part1.toString());
+
     std::cout << "The password has been hashed! It is: " << part1.toString() << "\nPART 2: The password will be hashed again to confirm it works.\n";
 
     //////////////////////////////////////////////
@@ -61,6 +47,9 @@ int main() {
     test.salt(password2, s1, s2, s3, input2, input_size2); //s1, s2, and s3 should be unchanged, so reuse them
 
     md5 part2(password2);
+    for(int i = 0; i < 1000; i++)
+        part2 = md5(part2.toString());
+
     if(test.is_equal(part2.toString(), part1.toString()))//is_equal function in rainbowTable.cpp, but not a class function
         std::cout << "A repeat hash with the same password and salt yielded the same hashed password.\n";
 
@@ -68,8 +57,12 @@ int main() {
     //Part 3: Implement rainbowTable using the dictionary file and test every possible salt and password to crack it
     //////////////////////////////////////////////
     std::cout << "PART 3: Attempting to brute-force password and salt.\n";
+    auto start2 = std::chrono::high_resolution_clock::now();
     test.loadDictionary();
     test.loadTable();
-    test.crackPassword(hashedPassword1);
+    test.crackPassword(part1.toString());
+    auto finish2 = std::chrono::high_resolution_clock::now();
+    auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(finish2 - start2);
+    std::cout << "rainbowTable  time(us): " << duration2.count() << '\n';
 }
 

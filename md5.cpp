@@ -213,7 +213,7 @@ void md5::update(const char input[], uint32_t length) {
 }
 
 //////////////////////////////
-// for convenience provide a verson with string 
+// for convenience provide a verson with string
 void md5::update(std::string text) {
     update(text.c_str(), text.length());
 }
